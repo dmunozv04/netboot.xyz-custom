@@ -5,8 +5,34 @@
 
 :start
 echo Hello world!
+goto ubuntu_autoinstall
 sleep 10
 goto custom_exit
 
 :custom_exit
 exit 0
+
+
+
+:ubuntu_autoinstall
+echo ${bold}${fg_gre}Starting Ubuntu autoinstall...${boldoff}
+set mirror http://releases.ubuntu.com
+set base_dir ubuntu
+set codename noble
+set version_number 24.04
+set os_arch amd64
+set flavor desktop
+set ubuntu_version ${codename}
+set arch ${os_arch}
+set mirrorcfg mirror/suite=${ubuntu_version}
+set dir ${mirror}/${base_dir}/dists/${codename}/main/installer-${arch}/current/images/netboot
+set ubuntu_iso_url http://releases.ubuntu.com/${codename}/ubuntu-${version_number}-${flavor}-${os_arch}.iso
+set autoinstall_url http://192.168.31.240:8081
+set install_params autoinstall ip=dhcp ds=nocloud-net;s=${autoinstall_url} url=${ubuntu_iso_url}
+
+echo Fetching Ubuntu installer kernel...
+kernel ${dir}/linux ${install_params} ${mirrorcfg} -- quiet initrd=initrd.gz
+echo Fetching Ubuntu installer initrd...
+initrd ${dir}/initrd.gz
+echo Booting Ubuntu installer...
+boot
