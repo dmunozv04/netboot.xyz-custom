@@ -25,7 +25,6 @@ set flavor desktop
 set ubuntu_version ${codename}
 set arch ${os_arch}
 set mirrorcfg mirror/suite=${ubuntu_version}
-set dir ${mirror}/${base_dir}/dists/${codename}/main/installer-${arch}/current/images/netboot
 set ubuntu_iso_url http://releases.ubuntu.com/${codename}/ubuntu-${version_number}-${flavor}-${os_arch}.iso
 set autoinstall_url http://192.168.31.240:8081
 set install_params autoinstall ip=dhcp ds=nocloud-net;s=${autoinstall_url} url=${ubuntu_iso_url}
